@@ -11,12 +11,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class MainMovement extends LinearOpMode {
 
     public void runOpMode(){
-        DcMotor m1 = hardwareMap.dcMotor.get("blm");
-        DcMotor m2 = hardwareMap.dcMotor.get("flm");
-        DcMotor m3 = hardwareMap.dcMotor.get("brm");
-        DcMotor m4 = hardwareMap.dcMotor.get("frm");
-        DcMotor intake = hardwareMap.dcMotor.get("Intake");
-        m1.setDirection(DcMotor.Direction.REVERSE);
+        //Motors
+         bottom_left_motor = hardwareMap.dcMotor.get("blm");
+         front_left_motor = hardwareMap.dcMotor.get("flm");
+         bottom_right_motor = hardwareMap.dcMotor.get("brm");
+         front_right_motor = hardwareMap.dcMotor.get("frm");
+         intake = hardwareMap.dcMotor.get("intakeMotor");
+        //Servos
+         intakeClaw = hardwareMap.servo.get("intakeClaw");
+        //Motor Settings
+        bottom_left_motor.setDirection(DcMotor.Direction.REVERSE);
         m2.setDirection(DcMotor.Direction.REVERSE);
 //        m1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        m2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -26,6 +30,12 @@ public class MainMovement extends LinearOpMode {
 //        m2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        m3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        m4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Servo Settings
+        public final static double intakeClaw_HOME = 0.2;// Starting Postion of the servo.
+        public final static double intakeClaw_MIN_RANGE = 0.0;//Minimum range of the servo.
+        public final static double intakeClaw_MAX_RANGE = 0.7;//Maximum range of the servo.
+        intakeClaw.setPosition(intakeClaw_HOME);
         gamepad1.setJoystickDeadzone(0.05f);
 
         waitForStart();
@@ -52,7 +62,9 @@ public class MainMovement extends LinearOpMode {
             m3.setPower(p3);
             m4.setPower(p4);
             if(gamepad1.x) {
-                
+                intakeClaw.setPosition(intakeClaw_MAX_RANGE);
+            }else{
+                intakeClaw.setPosition(intakeClaw_MIN_RANGE);
             }
 
             m1.setPower(0);
