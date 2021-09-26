@@ -35,6 +35,9 @@ public class MainMovement extends LinearOpMode {
         public final static double intakeClaw_HOME = 0.2;// Starting Postion of the servo.
         public final static double intakeClaw_MIN_RANGE = 0.0;//Minimum range of the servo.
         public final static double intakeClaw_MAX_RANGE = 0.7;//Maximum range of the servo.
+        public final static double intakeClaw_SPEED = 0.1;//Servo speed
+        public final static double intakeClaw_POSITION = intakeClaw_HOME;//Servo speed
+
         intakeClaw.setPosition(intakeClaw_HOME);
         gamepad1.setJoystickDeadzone(0.05f);
 
@@ -61,10 +64,11 @@ public class MainMovement extends LinearOpMode {
             m2.setPower(p2);
             m3.setPower(p3);
             m4.setPower(p4);
+            intakeClaw_POSITION = Range.clip(intakeClaw_POSITION, intakeClaw_MIN_RANGE, intakeClaw_MAX_RANGE);
             if(gamepad1.x) {
-                intakeClaw.setPosition(intakeClaw_MAX_RANGE);
+                intakeClaw_HOME += intakeClaw_SPEED;
             }else{
-                intakeClaw.setPosition(intakeClaw_MIN_RANGE);
+                intakeClaw_HOME -= intakeClaw_SPEED;
             }
 
             m1.setPower(0);
