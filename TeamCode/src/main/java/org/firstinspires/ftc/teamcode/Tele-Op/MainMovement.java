@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 /**
@@ -12,16 +13,19 @@ public class MainMovement extends LinearOpMode {
 
     public void runOpMode(){
         //Motors
-         bottom_left_motor = hardwareMap.dcMotor.get("blm");
-         front_left_motor = hardwareMap.dcMotor.get("flm");
-         bottom_right_motor = hardwareMap.dcMotor.get("brm");
-         front_right_motor = hardwareMap.dcMotor.get("frm");
-         intake = hardwareMap.dcMotor.get("intakeMotor");
+         Motor blm = hardwareMap.dcMotor.get("blm");
+         Motor flm = hardwareMap.dcMotor.get("flm");
+         Motor brm = hardwareMap.dcMotor.get("brm");
+         Motor frm = hardwareMap.dcMotor.get("frm");
+         Motor intake = hardwareMap.dcMotor.get("intakeMotor");
         //Servos
-         intakeClaw = hardwareMap.servo.get("intakeClaw");
+         Servo intakeClaw = hardwareMap.servo.get("intakeClaw");
+
+
+
         //Motor Settings
-        bottom_left_motor.setDirection(DcMotor.Direction.REVERSE);
-        m2.setDirection(DcMotor.Direction.REVERSE);
+        blm.setDirection(DcMotor.Direction.REVERSE);
+        flm.setDirection(DcMotor.Direction.REVERSE);
 //        m1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        m2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        m3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
