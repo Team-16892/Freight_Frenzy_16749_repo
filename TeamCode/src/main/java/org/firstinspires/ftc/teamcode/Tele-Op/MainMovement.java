@@ -1,9 +1,12 @@
  package org.firstinspires.ftc.teamcode;
 
         import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.Servo;
         import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-/**
+        import com.qualcomm.robotcore.util.Range;
+
+ /**
  * This OpMode represents the basic drive opMode
  *
  */
@@ -11,13 +14,27 @@
 public class MainMovement extends LinearOpMode {
 
     public void runOpMode(){
+        //Motors
         DcMotor m1 = hardwareMap.dcMotor.get("blm");
         DcMotor m2 = hardwareMap.dcMotor.get("flm");
         DcMotor m3 = hardwareMap.dcMotor.get("brm");
         DcMotor m4 = hardwareMap.dcMotor.get("frm");
         DcMotor intake = hardwareMap.dcMotor.get("Intake");
+        //Motor Settings
         m1.setDirection(DcMotor.Direction.REVERSE);
         m2.setDirection(DcMotor.Direction.REVERSE);
+        double intakeSpeed = 0.03;
+        //Servos
+        Servo intakeClaw = hardwareMap.servo.get("intakeClaw");
+        //Servo Settings
+        double intakeClaw_HOME = 0.2;// Starting Postion of the servo.
+        double intakeClaw_MIN_RANGE = 0.0;//Minimum range of the servo.
+        double intakeClaw_MAX_RANGE = 0.7;//Maximum range of the servo.
+        double intakeClaw_SPEED = 0.1;//Servo speed
+        double intakeClaw_POSITION = intakeClaw_HOME;//Servo speed
+
+        intakeClaw.setPosition(intakeClaw_HOME);
+
 
         waitForStart();
 
@@ -42,8 +59,16 @@ public class MainMovement extends LinearOpMode {
                 m2.setPower(p2);
                 m3.setPower(p3);
                 m4.setPower(p4);
+                intakeClaw_POSITION = Range.clip(intakeClaw_POSITION,intakeClaw_MIN_RANGE,intakeClaw_MAX_RANGE);
                 if(gamepad1.x) {
-
+                    intakeClaw_POSITION += intakeClaw_SPEED;
+                }else{
+                    intakeClaw_POSITION -= intakeClaw_SPEED;
+                }
+                if(gamepad1.dpad_up) {
+                    intake.setPower(intakeSpeed);
+                }else if(gamepad1.dpad_down){
+                    intake.setPower(-intakeSpeed);
                 }
 
                 m1.setPower(0);
