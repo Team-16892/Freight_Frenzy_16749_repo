@@ -41,7 +41,7 @@ public class MainMovement extends LinearOpMode {
             while (opModeIsActive()){
                 double px = gamepad1.left_stick_x;
                 double py = -gamepad1.left_stick_y;
-                double pa = gamepad1.left_trigger - gamepad1.right_trigger;
+                double pa = gamepad1.right_stick_y - gamepad1.right_stick_x;
                 if (Math.abs(pa) < 0.05) pa = 0;
                 double p1 = -px + py - pa;
                 double p2 = px + py + -pa;
@@ -65,11 +65,17 @@ public class MainMovement extends LinearOpMode {
                 }else{
                     intakeClaw_POSITION -= intakeClaw_SPEED;
                 }
+                intake.getCurrentPosition();
+
                 if(gamepad1.dpad_up) {
+                    intake.setTargetPosition(2);
                     intake.setPower(intakeSpeed);
                 }else if(gamepad1.dpad_down){
                     intake.setPower(-intakeSpeed);
+
                 }
+
+
 
                 m1.setPower(0);
                 m2.setPower(0);
