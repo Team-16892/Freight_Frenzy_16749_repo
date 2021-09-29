@@ -6,6 +6,8 @@
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.util.Range;
 
+        import org.firstinspires.ftc.robotcore.external.Telemetry;
+
  /**
  * This OpMode represents the basic drive opMode
  *
@@ -65,8 +67,7 @@ public class MainMovement extends LinearOpMode {
                 }else{
                     intakeClaw_POSITION -= intakeClaw_SPEED;
                 }
-                intake.getCurrentPosition();
-
+                
                 if(gamepad1.dpad_up) {
                     intake.setTargetPosition(2);
                     intake.setPower(intakeSpeed);
